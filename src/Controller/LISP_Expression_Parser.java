@@ -1,10 +1,6 @@
 package Controller;
 
-import Model.Functions;
-
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -16,7 +12,7 @@ public class LISP_Expression_Parser {
         Pattern pattern;
         Matcher matcher;
 
-        // Operaciones aritméticas simples
+        //Operaciones simples
         pattern = Pattern.compile("^[(]{1}[+*-/]{1} [0-9.]+ [0-9.]+[)]{1}$", Pattern.CASE_INSENSITIVE);  // Regex para una operación simple
         matcher = pattern.matcher(line);
 
@@ -30,18 +26,18 @@ public class LISP_Expression_Parser {
 
 
             if (tokens.length != 3) {
-                throw new IllegalArgumentException("Entrada inválida");
+                throw new IllegalArgumentException("La expresion ingresada es inválida, revisa tu sintáxis.");
             }
 
             if (!op.matches("[+\\-*/]")) {
-                throw new IllegalArgumentException("Operador inválido: " + op);
+                throw new IllegalArgumentException("El operando ingresado no es válido: " + op + ", revisa tu sintáxis.");
             }
 
             return performOperation(a, b, op);
 
         }
 
-        // Operaciones aritméticas simples (Una variable)
+        //Operaciones para una sola variable
         pattern = Pattern.compile("^[(]{1}[+\\-]{2} [0-9]+[)]{1}$", Pattern.CASE_INSENSITIVE);  // Regex para una operación simple
         matcher = pattern.matcher(line);
 
@@ -78,7 +74,7 @@ public class LISP_Expression_Parser {
             }
         }
 
-        //Definición de variables
+        //Funcion SETQ
         pattern = Pattern.compile("[(]{1}setq [A-z]+ [0-9.]+|[\"]+[A-z]+[\"]+[)]{1}$", Pattern.CASE_INSENSITIVE);  // Regex para una definición de variable
         matcher = pattern.matcher(line);
 
@@ -96,7 +92,7 @@ public class LISP_Expression_Parser {
             return ("Se ha asignado correctamente " + key + " con el value " + value);
         }
 
-        //Operaciones dentro de operaciones con dos paréntesis a la derecha
+        //Operaciones con 2 parentesis (Derecha)
         pattern = Pattern.compile("^[(]{1}[+*-/] [0-9.]+ [(]{1}.+[)]{2}$", Pattern.CASE_INSENSITIVE);  //Regex
         matcher = pattern.matcher(line);
 
@@ -105,14 +101,14 @@ public class LISP_Expression_Parser {
             line = line.replace(")", "");
             String[] tokens = line.split(" ");
 
-            //Opera los números decimales
+            //Decimales
             String subOperation = "(" + tokens[2] + " " + tokens[3] + " " + tokens[4] + ")";
             String result = parse(subOperation);
             String finalOperation = "(" + tokens[0] + " " + tokens[1] + " " + result + ")";
             return parse(finalOperation);
         }
 
-        //Operaciones dentro de operaciones con dos paréntesis a la izquierda
+        //Operaciones con 2 parentesis (Izquierda)
         pattern = Pattern.compile("^[(]{1}[+*-/] [(][+*-/] [0-9.]+ [0-9.]+[)]{1} [0-9.]+[)]{1}$", Pattern.CASE_INSENSITIVE);  //Regex
         matcher = pattern.matcher(line);
 
@@ -121,14 +117,14 @@ public class LISP_Expression_Parser {
             line = line.replace(")", "");
             String[] tokens = line.split(" ");
 
-            //opera números decimales
+            //SubOperaciones Aritmeticas
             String subOperation = "(" + tokens[1] + " " + tokens[2] + " " + tokens[3] + ")";
             String result = parse(subOperation);
             String finalOperation = "(" + tokens[0] + " " + result + " " + tokens[4] + ")";
             return parse(finalOperation);
         }
 
-        //Operaciones dentro de operaciones con dos paréntesis
+        //Operaciones con doble parentesis
         pattern = Pattern.compile("^[(]{1}[+*-\\/] [(]{1}[+*-\\/]+ [0-9.]+ [0-9.]+[)]{1} [(]{1}[+*-\\/] [0-9.]+ [0-9.]+[)]{2}$", Pattern.CASE_INSENSITIVE);  // Regex
         matcher = pattern.matcher(line);
 
@@ -137,7 +133,7 @@ public class LISP_Expression_Parser {
             line = line.replace(")", "");
             String[] tokens = line.split(" ");
 
-            //Opera los números decimales
+            //SubOperaciones Aritmeticas
             String subOperation1 = "(" + tokens[1] + " " + tokens[2] + " " + tokens[3] + ")";
             String subResult1 = parse(subOperation1);
             String subOperation2 = "(" + tokens[4] + " " + tokens[5] + " " + tokens[6] + ")";
@@ -147,9 +143,10 @@ public class LISP_Expression_Parser {
 
         }
 
-        return "Expresión inválida. Ingrese '(EXIT)' para salir.";
+        return "La expresión ingresada no es un entrada inválida, revisa la sintáxis con la que fue ingresada. Ingrese '(exit)' para salir del interprete.";
     }
 
+    //Metodo que evalua las operaciones aritmeticas.
     private static String performOperation(String a, String b, String op) {
         double x = Double.parseDouble(a);
         double y = Double.parseDouble(b);

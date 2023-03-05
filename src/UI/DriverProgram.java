@@ -14,8 +14,8 @@ public class DriverProgram {
         start();
         input= getOperacion(sc);
 
-        while(!input.equals("(EXIT)")){
-            if(input.equals("(HELP)")){
+        while(!input.equals("(exit)")){
+            if(input.equals("(help)")){
                 help();
             }else{
                 print(lispExpressionParser.parse(input));
