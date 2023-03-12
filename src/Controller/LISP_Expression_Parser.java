@@ -11,7 +11,7 @@ public class LISP_Expression_Parser {
     public String parse(String line) {
         Pattern pattern;
         Matcher matcher;
-
+    
         //Operaciones simples
         pattern = Pattern.compile("^[(]{1}[+*-/]{1} [0-9.]+ [0-9.]+[)]{1}$", Pattern.CASE_INSENSITIVE);  // Regex para una operación simple
         matcher = pattern.matcher(line);
