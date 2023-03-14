@@ -6,23 +6,22 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Lisp_Function {
-    private static Boolean Atom(String expression){
-        Boolean atom = false;
-        Pattern pattern = Pattern.compile("[a-zA-Z]+", Pattern.CASE_INSENSITIVE);
+    private static boolean Atom(String expression) {
+        Pattern pattern = Pattern.compile("([a-zA-Z]+)|(?<![0-9])[0-9]+");
         Matcher matcher = pattern.matcher(expression);
-        String varName = "";
-        if (matcher.find()) {
-            varName = matcher.group().trim();
-            atom = true;
+
+        boolean atom = false;
+
+        while (matcher.find()) {
+            if (matcher.group(1) != null) {
+                // Se ha encontrado el nombre de la variable
+                atom = true;
+            } else {
+                // Se ha encontrado el valor de la variable
+                atom = true;
+            }
         }
 
-        pattern = Pattern.compile("(?<![0-9])[0-9]+[ ]*", Pattern.CASE_INSENSITIVE); //
-        matcher = pattern.matcher(expression);
-        Integer varValue = 0;
-        if (matcher.find()) {
-            varValue = Integer.parseInt(matcher.group().trim());
-            atom = true;
-        }
         return atom;
     }
 
@@ -42,49 +41,46 @@ public class Lisp_Function {
         return list;
     }
 
-    private static Boolean higher(String expression){
-        ArrayList provisional = new ArrayList<>();
-        Boolean higher= true;
-        Pattern pattern = Pattern.compile("[0-9]+", Pattern.CASE_INSENSITIVE);
+    private static boolean higher(String expression) {
+        Pattern pattern = Pattern.compile("[0-9]+");
         Matcher matcher = pattern.matcher(expression);
-        int value=0;
-        while (matcher.find()){
-            value= Integer.parseInt((matcher.group().trim()));
-            provisional.add(value);
-        }
-        int one= (int) provisional.get(0);
-        int two= (int) provisional.get(1);
 
-        if (one > two){
-            higher=true;
-        }else {
-            higher=false;
+        int one = 0;
+        int two = 0;
+
+        while (matcher.find()) {
+            int value = Integer.parseInt(matcher.group().trim());
+            if (one == 0) {
+                one = value;
+            } else {
+                two = value;
+                break;
+            }
         }
 
-        return higher;
+        return one > two;
     }
 
-    private static Boolean lower(String expression){
-        ArrayList provisional= new ArrayList();
-        Boolean lower= true;
-        Pattern pattern = Pattern.compile("[0-9]+", Pattern.CASE_INSENSITIVE);
+    private static boolean lower(String expression) {
+        Pattern pattern = Pattern.compile("[0-9]+");
         Matcher matcher = pattern.matcher(expression);
-        Integer value=0;
-        while (matcher.find()){
-            value= Integer.parseInt(matcher.group().trim());
-            provisional.add(value);
-        }
-        int one= (int) provisional.get(0);
-        int two= (int) provisional.get(1);
 
-        if (one < two){
-            lower=true;
-        }else {
-            lower=false;
+        int one = 0;
+        int two = 0;
+
+        while (matcher.find()) {
+            int value = Integer.parseInt(matcher.group().trim());
+            if (one == 0) {
+                one = value;
+            } else {
+                two = value;
+                break;
+            }
         }
 
-        return lower;
+        return one < two;
     }
+
 
     private static Boolean Equal(String expression){
         ArrayList<String> list= new ArrayList<>();
