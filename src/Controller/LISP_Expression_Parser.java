@@ -71,17 +71,17 @@ public class LISP_Expression_Parser {
     }
 
     //Metodo que evalua las operaciones aritmeticas.
-    private static String performOperation(String a, String b, String op) {
-        double x = Double.parseDouble(a);
-        double y = Double.parseDouble(b);
+  //  private static String performOperation(String a, String b, String op) {
+        //double x = Double.parseDouble(a);
+        //double y = Double.parseDouble(b);
 
-        return switch (op) {
-            case "+" -> Double.toString(Arithmetics_Evaluation.add(x, y));
-            case "-" -> Double.toString(Arithmetics_Evaluation.sub(x, y));
-            case "*" -> Double.toString(Arithmetics_Evaluation.mult(x, y));
-            case "/" -> Double.toString(Arithmetics_Evaluation.div(x, y));
-            default -> throw new IllegalArgumentException("Operador inválido: " + op);
-        };
-    }
+        //return switch (op) {
+            //case "+" -> Double.toString(Arithmetics_Evaluation.add(x, y));
+            //case "-" -> Double.toString(Arithmetics_Evaluation.sub(x, y));
+            //case "*" -> Double.toString(Arithmetics_Evaluation.mult(x, y));
+          //  case "/" -> Double.toString(Arithmetics_Evaluation.div(x, y));
+        //    default -> throw new IllegalArgumentException("Operador inválido: " + op);
+      //  };
+    //}
 
 }
