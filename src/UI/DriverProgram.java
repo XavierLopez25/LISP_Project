@@ -18,18 +18,15 @@ public class DriverProgram {
             if(input.equals("(help)")){
                 help();
             }else{
-                if(lispExpressionParser.evaluate(input) == 0){
-                    print("Variable asignada");
-                }else{
-                    print(String.valueOf(lispExpressionParser.evaluate(input)));
+                print(String.valueOf(lispExpressionParser.parse(input)));
+                input= getOperacion(sc);
                 }
 
             }
-            input= getOperacion(sc);
-        }
-        salida();
 
-    }
+        }
+
+
 
     public static void print(String print){
         System.out.print(print);

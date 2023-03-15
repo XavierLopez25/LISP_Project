@@ -306,7 +306,7 @@ public class Lisp_Function {
                     cad.append(matcher.group().trim().replace(")", ""));
                 }
                 cad.append(")");
-                RESULT= String.valueOf(lisp.evaluate(cad.toString().replaceAll("([*/<>a-zA-Z0-9+-])", "$1 ")));
+                RESULT= String.valueOf(lisp.parse(cad.toString().replaceAll("([*/<>a-zA-Z0-9+-])", "$1 ")));
                 break;
             case "-":
                 cad.append("(-");
@@ -314,7 +314,7 @@ public class Lisp_Function {
                     cad.append(matcher.group().trim().replace(")", ""));
                 }
                 cad.append(")");
-                RESULT= String.valueOf(lisp.evaluate(cad.toString().replaceAll("([*/<>a-zA-Z0-9+-])", "$1 ")));
+                RESULT= String.valueOf(lisp.parse(cad.toString().replaceAll("([*/<>a-zA-Z0-9+-])", "$1 ")));
                 break;
             case "*":
                 cad.append("(*");
@@ -322,7 +322,7 @@ public class Lisp_Function {
                     cad.append(matcher.group().trim().replace(")", ""));
                 }
                 cad.append(")");
-                RESULT= String.valueOf(lisp.evaluate(cad.toString().replaceAll("([*/<>a-zA-Z0-9+-])", "$1 ")));
+                RESULT= String.valueOf(lisp.parse(cad.toString().replaceAll("([*/<>a-zA-Z0-9+-])", "$1 ")));
                 break;
             case "/":
                 cad.append("(/");
@@ -330,7 +330,7 @@ public class Lisp_Function {
                     cad.append(matcher.group().trim().replace(")", ""));
                 }
                 cad.append(")");
-                RESULT= String.valueOf(lisp.evaluate(cad.toString().replaceAll("([*/<>a-zA-Z0-9+-])", "$1 ")));
+                RESULT= String.valueOf(lisp.parse(cad.toString().replaceAll("([*/<>a-zA-Z0-9+-])", "$1 ")));
                 break;
             case "'":
                 while (matcher.find()){
