@@ -6,7 +6,7 @@ import java.util.regex.Pattern;
 
 public class LISP_Expression_Parser {
 
-    static HashMap<String, String> variablesHashMap = new HashMap<>();
+    public static HashMap<String, String> variablesHashMap = new HashMap<>();
 
     public static String parse(String line) {
         Pattern pattern;
@@ -48,7 +48,7 @@ public class LISP_Expression_Parser {
             String a = tokens[1];
 
             switch (tokens[0]) {
-                case "++" -> {
+                case "++": {
                     if (a.contains(".")) {
                         double x = Double.parseDouble(a);
                         double result = Arithmetics_Evaluation.incr(x);
@@ -59,7 +59,7 @@ public class LISP_Expression_Parser {
                         return Integer.toString(result);
                     }
                 }
-                case "--" -> {
+                case "--": {
                     if (a.contains(".")) {
                         double x = Double.parseDouble(a);
                         double result = Arithmetics_Evaluation.decr(x);
@@ -70,7 +70,7 @@ public class LISP_Expression_Parser {
                         return Integer.toString(result);
                     }
                 }
-                default -> throw new IllegalArgumentException("Operador no válido: " + tokens[0]);
+                default: throw new IllegalArgumentException("Operador no válido: " + tokens[0]);
             }
         }
 

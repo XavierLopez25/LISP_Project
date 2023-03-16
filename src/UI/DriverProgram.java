@@ -20,7 +20,7 @@ public class DriverProgram {
             if(input.equals("(help)")){
                 help();
             }else{
-                print(String.valueOf(lispExpressionParser.parse(input)));
+                print(String.valueOf(Lisp_Function.Operation(input)));
                 input= getOperacion(sc);
                 }
 

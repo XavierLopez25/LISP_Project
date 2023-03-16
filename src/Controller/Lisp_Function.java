@@ -8,6 +8,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Lisp_Function {
+    static HashMap Map= LISP_Expression_Parser.variablesHashMap;
     /**
      * Verifica si una cadena de string tiene numero o letras
      * (atom 1) (atom a)
@@ -50,7 +51,12 @@ public class Lisp_Function {
             } else if (object==")") {
                 break;
             }
-            list.add(object);
+            String valor= (String) Map.getOrDefault(object, null);
+            if (valor == null){
+                list.add(object);
+            } else {
+                list.add(valor);
+            }
         }
         return list;
     }
@@ -62,20 +68,30 @@ public class Lisp_Function {
      * @return
      */
     private static boolean higher(String expression) {
-        Pattern pattern = Pattern.compile("[0-9]+");
+        ArrayList provisional = new ArrayList<>();
+        Pattern pattern = Pattern.compile("[0-9a-zA-Z]+");
         Matcher matcher = pattern.matcher(expression);
 
         int one = 0;
         int two = 0;
+        String value="";
 
         while (matcher.find()) {
-            int value = Integer.parseInt(matcher.group().trim());
-            if (one == 0) {
-                one = value;
-            } else {
-                two = value;
-                break;
-            }
+            value= (matcher.group().trim());
+            provisional.add(value);
+        }
+        String valor= (String) Map.getOrDefault(provisional.get(0), null);
+        if (valor==null){
+            one= Integer.parseInt((String) provisional.get(0));
+        }else {
+            one = Integer.parseInt(valor);
+        }
+
+        String valor2= (String) Map.getOrDefault(provisional.get(1), null);
+        if (valor2==null){
+            two= Integer.parseInt((String) provisional.get(1));
+        }else {
+            two = Integer.parseInt(valor2);
         }
 
         return one > two;
@@ -88,20 +104,30 @@ public class Lisp_Function {
      * @return
      */
     private static boolean lower(String expression) {
-        Pattern pattern = Pattern.compile("[0-9]+");
+        ArrayList provisional= new ArrayList();
+        Pattern pattern = Pattern.compile("[0-9a-zA-Z]+");
         Matcher matcher = pattern.matcher(expression);
 
         int one = 0;
         int two = 0;
+        String value="";
 
         while (matcher.find()) {
-            int value = Integer.parseInt(matcher.group().trim());
-            if (one == 0) {
-                one = value;
-            } else {
-                two = value;
-                break;
-            }
+            value= (matcher.group().trim());
+            provisional.add(value);
+        }
+        String valor= (String) Map.getOrDefault(provisional.get(0), null);
+        if (valor==null){
+            one= Integer.parseInt((String) provisional.get(0));
+        }else {
+            one = Integer.parseInt(valor);
+        }
+
+        String valor2= (String) Map.getOrDefault(provisional.get(1), null);
+        if (valor2==null){
+            two= Integer.parseInt((String) provisional.get(1));
+        }else {
+            two = Integer.parseInt(valor2);
         }
 
         return one < two;
@@ -129,17 +155,31 @@ public class Lisp_Function {
         if (list.size()>1){
             char[] list1 = list.get(0).toCharArray();
             char[] list2 = list.get(1).toCharArray();
-            List<Character> charList1 = new ArrayList<>();
-            List<Character> charList2 = new ArrayList<>();
+            List charList1 = new ArrayList<>();
+            List charList2 = new ArrayList<>();
             for (char c : list1) {
-                charList1.add(c);
+                String C= String.valueOf(c);
+                Object valor= (String) Map.getOrDefault(C, null);
+                if (valor == null){
+                    charList1.add(C);
+                } else {
+                    charList1.add(valor);
+                }
             }
             for (char c : list2) {
-                charList2.add(c);
+                String C= String.valueOf(c);
+                Object valor= (String) Map.getOrDefault(C, null);
+                if (valor == null){
+                    charList2.add(C);
+                } else {
+                    charList2.add(valor);
+                }
             }
             for (int i = 0; i < charList1.size(); i++) {
                 if (charList1.size() == charList2.size()){
-                    if (charList1.get(i) == charList2.get(i)){
+                    String val1= (String) charList1.get(i);
+                    String val2= (String) charList2.get(i);
+                    if (val1.equals(val2)){
                         equal=true;
                     }else {
                         equal=false;
@@ -166,11 +206,16 @@ public class Lisp_Function {
         HashMap map= new HashMap<>();
         ArrayList keys= new ArrayList<>();
         String a ="";
-        Pattern pattern = Pattern.compile("[a-zA-Z0-9<>()+'-]+");
+        Pattern pattern = Pattern.compile("[a-zA-Z0-9<>()+'/*-]+");
         Matcher matcher = pattern.matcher(expression);
         String value = "";
         while (matcher.find()) {
-            value = matcher.group().trim();
+            String container= (String) Map.getOrDefault(matcher.group().trim(), null);
+            if (container == null){
+                value = matcher.group().trim();
+            }else {
+                value= container;
+            }
         }
         ArrayList ch = split(value);
         if (ch.size() % 2 != 0) {
@@ -192,6 +237,7 @@ public class Lisp_Function {
                 String bool= Operation(ex);
                 if (bool=="True"){
                     a = Operation(((String) map.get(key)).replaceAll("([<>0-9a-zA-Z'+*/-])", " $1"));
+                    break;
                 } else if (map.get(key) == "0") {
                     String finalValue= key.toString().replaceAll("t","");
                     a=Operation(finalValue.replaceAll("([<>0-9a-zA-Z'+*/-])", " $1"));
@@ -347,38 +393,6 @@ public class Lisp_Function {
                 }
                 RESULT = cond(text);
                 break;
-            case "+":
-                cad.append("(+");
-                while (matcher.find()){
-                    cad.append(matcher.group().trim().replace(")", ""));
-                }
-                cad.append(")");
-                RESULT= String.valueOf(evaluate(cad.toString().replaceAll("([*/<>a-zA-Z0-9+-])", "$1 ")));
-                break;
-            case "-":
-                cad.append("(-");
-                while (matcher.find()){
-                    cad.append(matcher.group().trim().replace(")", ""));
-                }
-                cad.append(")");
-                RESULT= String.valueOf(evaluate(cad.toString().replaceAll("([*/<>a-zA-Z0-9+-])", "$1 ")));
-                break;
-            case "*":
-                cad.append("(*");
-                while (matcher.find()){
-                    cad.append(matcher.group().trim().replace(")", ""));
-                }
-                cad.append(")");
-                RESULT= String.valueOf(evaluate(cad.toString().replaceAll("([*/<>a-zA-Z0-9+-])", "$1 ")));
-                break;
-            case "/":
-                cad.append("(/");
-                while (matcher.find()){
-                    cad.append(matcher.group().trim().replace(")", ""));
-                }
-                cad.append(")");
-                RESULT= String.valueOf(evaluate(cad.toString().replaceAll("([*/<>a-zA-Z0-9+-])", "$1 ")));
-                break;
             case "'":
                 while (matcher.find()){
                     value.add(matcher.group().trim().replace(")", ""));
@@ -386,6 +400,9 @@ public class Lisp_Function {
                 result = value.toString().replaceAll("[\\[\\],]", "");
                 result=result.replaceAll(" ", "");
                 RESULT=result;
+                break;
+            default:
+                RESULT = String.valueOf(lisp.parse(expression));
         }
         return RESULT;
     }
