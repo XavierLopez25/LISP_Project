@@ -251,7 +251,7 @@ public class Lisp_Function {
 
     /**
      * Separa una cadena de string en un arraylist dependiendo de sus parentesis
-     * (cond ((> x y) (' mayor)) ((< x y) (' menor)) (t 'igual))
+     * (cond ((> x y) (' mayor ')) ((< x y) (' menor ')) (t 'igual'))
      * @param expression
      * @return
      */
@@ -399,6 +399,7 @@ public class Lisp_Function {
                 }
                 result = value.toString().replaceAll("[\\[\\],]", "");
                 result=result.replaceAll(" ", "");
+                result=result.replaceAll("'", "");
                 RESULT=result;
                 break;
             default:
