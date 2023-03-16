@@ -8,6 +8,12 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Lisp_Function {
+    /**
+     * Verifica si una cadena de string tiene numero o letras
+     * (atom 1) (atom a)
+     * @param expression
+     * @return
+     */
     private static boolean Atom(String expression) {
         Pattern pattern = Pattern.compile("([a-zA-Z]+)|(?<![0-9])[0-9]+");
         Matcher matcher = pattern.matcher(expression);
@@ -27,6 +33,12 @@ public class Lisp_Function {
         return atom;
     }
 
+    /**
+     * crea una lista con los objetos que contenga
+     * (list 1 2 3) (list (1 2 3) (hola))
+     * @param expression
+     * @return
+     */
     private static List<Object> List(String expression){
         List<Object> list= new ArrayList<>();
         Pattern pattern = Pattern.compile("[a-zA-Z0-9()]+", Pattern.CASE_INSENSITIVE);
@@ -43,6 +55,12 @@ public class Lisp_Function {
         return list;
     }
 
+    /**
+     * Verifica si un numero es mayor a otro
+     * (> 2 1)
+     * @param expression
+     * @return
+     */
     private static boolean higher(String expression) {
         Pattern pattern = Pattern.compile("[0-9]+");
         Matcher matcher = pattern.matcher(expression);
@@ -63,6 +81,12 @@ public class Lisp_Function {
         return one > two;
     }
 
+    /**
+     * Verifica si un numero es menor a otro
+     * (< 1 2)
+     * @param expression
+     * @return
+     */
     private static boolean lower(String expression) {
         Pattern pattern = Pattern.compile("[0-9]+");
         Matcher matcher = pattern.matcher(expression);
@@ -83,7 +107,12 @@ public class Lisp_Function {
         return one < two;
     }
 
-
+    /**
+     * Verifica si un numero o una palabra es igual a otra
+     * (equal 1 1) (equal hola hola)
+     * @param expression
+     * @return
+     */
     private static Boolean Equal(String expression){
         ArrayList<String> list= new ArrayList<>();
         boolean equal = true;
@@ -128,6 +157,11 @@ public class Lisp_Function {
         return equal;
     }
 
+    /**
+     * Crea condicionales para una funcion
+     * @param expression
+     * @return
+     */
     private static String cond(String expression) {
         HashMap map= new HashMap<>();
         ArrayList keys= new ArrayList<>();
@@ -168,6 +202,13 @@ public class Lisp_Function {
         }
         return a;
     }
+
+    /**
+     * Separa una cadena de string en un arraylist dependiendo de sus parentesis
+     * (cond ((> x y) (' mayor)) ((< x y) (' menor)) (t 'igual))
+     * @param expression
+     * @return
+     */
     private static  ArrayList split(String expression){
         int count = 0;
         ArrayList result = new ArrayList<String>();
@@ -191,6 +232,12 @@ public class Lisp_Function {
         return result;
     }
 
+    /**
+     * Entra la expresion que se desea evaluar
+     * (atom 1) (atom a) (equal 1 1) (equal hola hola) (atom 1) (atom a) (list 1 2 3) (list (1 2 3) (hola)) (> 2 1)
+     * @param expression
+     * @return
+     */
     public static String Operation(String expression){
         LISP_Expression_Parser lisp= new LISP_Expression_Parser();
         StringBuilder cad = new StringBuilder();
