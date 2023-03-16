@@ -306,7 +306,7 @@ public class Lisp_Function {
                     cad.append(matcher.group().trim().replace(")", ""));
                 }
                 cad.append(")");
-                RESULT= String.valueOf(lisp.parse(cad.toString().replaceAll("([*/<>a-zA-Z0-9+-])", "$1 ")));
+                RESULT= String.valueOf(evaluate(cad.toString().replaceAll("([*/<>a-zA-Z0-9+-])", "$1 ")));
                 break;
             case "-":
                 cad.append("(-");
@@ -314,7 +314,7 @@ public class Lisp_Function {
                     cad.append(matcher.group().trim().replace(")", ""));
                 }
                 cad.append(")");
-                RESULT= String.valueOf(lisp.parse(cad.toString().replaceAll("([*/<>a-zA-Z0-9+-])", "$1 ")));
+                RESULT= String.valueOf(evaluate(cad.toString().replaceAll("([*/<>a-zA-Z0-9+-])", "$1 ")));
                 break;
             case "*":
                 cad.append("(*");
@@ -322,7 +322,7 @@ public class Lisp_Function {
                     cad.append(matcher.group().trim().replace(")", ""));
                 }
                 cad.append(")");
-                RESULT= String.valueOf(lisp.parse(cad.toString().replaceAll("([*/<>a-zA-Z0-9+-])", "$1 ")));
+                RESULT= String.valueOf(evaluate(cad.toString().replaceAll("([*/<>a-zA-Z0-9+-])", "$1 ")));
                 break;
             case "/":
                 cad.append("(/");
@@ -330,7 +330,7 @@ public class Lisp_Function {
                     cad.append(matcher.group().trim().replace(")", ""));
                 }
                 cad.append(")");
-                RESULT= String.valueOf(lisp.parse(cad.toString().replaceAll("([*/<>a-zA-Z0-9+-])", "$1 ")));
+                RESULT= String.valueOf(evaluate(cad.toString().replaceAll("([*/<>a-zA-Z0-9+-])", "$1 ")));
                 break;
             case "'":
                 while (matcher.find()){
@@ -342,4 +342,63 @@ public class Lisp_Function {
         }
         return RESULT;
     }
+
+
+    public static int evaluate(String expression) {
+        if (expression.startsWith("(")) {
+            // Evaluate the expression
+            int endIndex = findMatchingParenthesis(expression, 0);
+            String[] tokens = tokenize(expression.substring(1, endIndex));
+            return evaluate(tokens);
+        } else {
+            // This is a number or a variable
+            try {
+                return Integer.parseInt(expression);
+            } catch (NumberFormatException e) {
+                return Integer.parseInt(LISP_Expression_Parser.variablesHashMap.getOrDefault(expression, String.valueOf(0)));
+            }
+        }
+    }
+
+    private static int evaluate(String[] tokens) {
+        // Evaluate the expression
+        if (tokens[0].equals("+")) {
+            return evaluate(tokens[1]) + evaluate(tokens[2]);
+        } else if (tokens[0].equals("-")) {
+            return evaluate(tokens[1]) - evaluate(tokens[2]);
+        } else if (tokens[0].equals("*")) {
+            return evaluate(tokens[1]) * evaluate(tokens[2]);
+        } else if (tokens[0].equals("/")) {
+            return evaluate(tokens[1]) / evaluate(tokens[2]);
+        } else if (tokens[0].equals("setq")) {
+            LISP_Expression_Parser.variablesHashMap.put(tokens[1], String.valueOf((evaluate(tokens[2]))));
+            return 0;
+        } else {
+            throw new RuntimeException("Unknown operator: " + tokens[0]);
+        }
+    }
+
+    private static String[] tokenize(String expression) {
+        // Tokenize the expression
+        return expression.split(" ");
+    }
+
+    private static int findMatchingParenthesis(String expression, int startIndex) {
+        // Find the index of the matching parenthesis
+        int count = 1;
+        for (int i = startIndex + 1; i < expression.length(); i++) {
+            char c = expression.charAt(i);
+            if (c == '(') {
+                count++;
+            } else if (c == ')') {
+                count--;
+            }
+            if (count == 0) {
+                return i;
+            }
+        }
+        throw new RuntimeException("Unmatched parenthesis");
+    }
+
+
 }

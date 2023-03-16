@@ -6,7 +6,7 @@ import java.util.regex.Pattern;
 
 public class LISP_Expression_Parser {
 
-    private static HashMap<String, String> variablesHashMap = new HashMap<>();
+    static HashMap<String, String> variablesHashMap = new HashMap<>();
 
     public static String parse(String line) {
         Pattern pattern;
