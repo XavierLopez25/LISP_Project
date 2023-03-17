@@ -803,13 +803,13 @@ public class LISP_Expression_Parser {
         double x = Double.parseDouble(a);
         double y = Double.parseDouble(b);
 
-        switch (op) {
-            case "+": return Double.toString(Arithmetics_Evaluation.add(x, y));
-            case "-": return Double.toString(Arithmetics_Evaluation.sub(x, y));
-            case "*": return Double.toString(Arithmetics_Evaluation.mult(x, y));
-            case "/": return Double.toString(Arithmetics_Evaluation.div(x, y));
-            default: throw new IllegalArgumentException("Operador inválido: " + op);
-        }
+        return switch (op) {
+            case "+" -> Double.toString(Arithmetics_Evaluation.add(x, y));
+            case "-" -> Double.toString(Arithmetics_Evaluation.sub(x, y));
+            case "*" -> Double.toString(Arithmetics_Evaluation.mult(x, y));
+            case "/" -> Double.toString(Arithmetics_Evaluation.div(x, y));
+            default -> throw new IllegalArgumentException("Operador inválido: " + op);
+        };
     }
 
 
