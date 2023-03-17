@@ -65,6 +65,7 @@ public class Functions {
             Matcher matcher = pattern.matcher(expression);
             if (matcher.find()) {
                 String firstSymbol = matcher.group();
+                System.out.println(firstSymbol);
                 if(firstSymbol.equals("+") || firstSymbol.equals("-") || firstSymbol.equals("*") || firstSymbol.equals("/") || firstSymbol.equals("setq")){
                     System.out.println(LISP_Expression_Parser.parse(expression));
                     System.out.println("11.0");
@@ -92,15 +93,14 @@ public class Functions {
 
     public String Checker(String input, ArrayList<String> list){
         String name = "";
-        Pattern pattern = Pattern.compile("(\\w+)\\s+\\(([\\d.-]+)\\s+([\\d.-]+)\\)\n");
+        Pattern pattern = Pattern.compile("^\\((\\w+)\\s+\\((\\w+)\\s+(\\w+)\\)\\)$");
         Matcher matcher = pattern.matcher(input);
         if (matcher.find()) {
-            name = matcher.group(0);
-            String[] parameters = matcher.group(1).split("\s+");
+            name = matcher.group(1);
+            String[] parameters = {matcher.group(2), matcher.group(3)};
             list.addAll(Arrays.asList(parameters));
         } else {
             System.out.println("Error de sintaxis");
-            return name;
         }
         return name;
     }

@@ -5,14 +5,13 @@ import java.util.HashMap;
 
 public class SingletonMapFunctions {
 
-    private boolean instanceFlag;
-    private HashMap<String, ArrayList<ArrayList<String>>> compiledFunctions;
+    private static boolean instanceFlag = false;
+    private static SingletonMapFunctions single;
 
-    public HashMap<String, ArrayList<ArrayList<String>>> getFunctions(){
+    public static HashMap<String, ArrayList<ArrayList<String>>> getFunctions(){
         if (!instanceFlag) {
-            compiledFunctions = new HashMap<>();
+            single =
             instanceFlag = true;
         }
-        return compiledFunctions;
     }
 }
