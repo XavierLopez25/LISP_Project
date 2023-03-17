@@ -12,8 +12,8 @@ import java.util.regex.Pattern;
 public class Functions {
 
     public void saveFunction(String name, ArrayList<String> parameters, ArrayList<String> body) {
-        SingletonMapFunctions mapInstance = new SingletonMapFunctions();
-        HashMap<String, ArrayList<ArrayList<String>>> map = mapInstance.getFunctions();
+        SingletonMapFunctions mapInstance = SingletonMapFunctions.getFunctions();
+        HashMap<String, ArrayList<ArrayList<String>>> map = mapInstance.getMap();
         map.put(name, new ArrayList<>());
         map.get(name).add(body);
         map.get(name).add(parameters);
@@ -40,8 +40,8 @@ public class Functions {
     public String getFunction(String input){
         ArrayList<String> parameters = new ArrayList<>();
         String name = Checker(input, parameters);
-        SingletonMapFunctions sing = new SingletonMapFunctions();
-        HashMap<String, ArrayList<ArrayList<String>>> map = sing.getFunctions();
+        SingletonMapFunctions sing = SingletonMapFunctions.getFunctions();
+        HashMap<String, ArrayList<ArrayList<String>>> map = sing.getMap();
 
         for (String k:map.keySet()) {
             if(k.equals(name)){
