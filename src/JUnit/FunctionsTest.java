@@ -8,9 +8,18 @@ import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * The type Functions test.
+ */
 class FunctionsTest {
+    /**
+     * The Map functions.
+     */
     SingletonMapFunctions mapFunctions;
 
+    /**
+     * Save function.
+     */
     @Test
     void saveFunction(){
         mapFunctions = SingletonMapFunctions.getFunctions();

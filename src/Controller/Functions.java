@@ -9,8 +9,18 @@ import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * The type Functions.
+ */
 public class Functions {
 
+    /**
+     * Save function.
+     *
+     * @param name       the name
+     * @param parameters the parameters
+     * @param body       the body
+     */
     public void saveFunction(String name, ArrayList<String> parameters, ArrayList<String> body) {
         SingletonMapFunctions mapInstance = SingletonMapFunctions.getFunctions();
         HashMap<String, ArrayList<ArrayList<String>>> map = mapInstance.getMap();
@@ -19,6 +29,13 @@ public class Functions {
         map.get(name).add(parameters);
     }
 
+    /**
+     * Check body string.
+     *
+     * @param input the input
+     * @param sc    the sc
+     * @return the string
+     */
     public String checkBody(String input, Scanner sc){
         ArrayList<String> lines = new ArrayList<>();
         ArrayList<String> parameters = new ArrayList<>();
@@ -37,6 +54,12 @@ public class Functions {
         return "";
     }
 
+    /**
+     * Get function string.
+     *
+     * @param input the input
+     * @return the string
+     */
     public String getFunction(String input){
         ArrayList<String> parameters = new ArrayList<>();
         String name = Checker(input, parameters);
@@ -59,6 +82,12 @@ public class Functions {
         return "Ejecucion finalizada";
     }
 
+    /**
+     * Compile function.
+     *
+     * @param parameters the parameters
+     * @param code       the code
+     */
     public void compileFunction(ArrayList<String> parameters, ArrayList<String> code){
         for (String expression:code) {
             Pattern pattern = Pattern.compile("(?<=\\()[\\+\\-\\*/<>]|[a-zA-Z]+(?=\\s)");
@@ -68,7 +97,6 @@ public class Functions {
                 System.out.println(firstSymbol);
                 if(firstSymbol.equals("+") || firstSymbol.equals("-") || firstSymbol.equals("*") || firstSymbol.equals("/") || firstSymbol.equals("setq")){
                     System.out.println(LISP_Expression_Parser.parse(expression));
-                    System.out.println("11.0");
                 } else if (firstSymbol.equals("cond") || firstSymbol.equals("atom") || firstSymbol.equals("equal") || firstSymbol.equals("lower") || firstSymbol.equals("higher") || firstSymbol.equals("list")) {
                     Lisp_Function.Operation(expression);
                 }
@@ -76,6 +104,13 @@ public class Functions {
         }
     }
 
+    /**
+     * Syntax checker string.
+     *
+     * @param input the input
+     * @param list  the list
+     * @return the string
+     */
     public String syntaxChecker(String input, ArrayList<String> list){
         String name = "";
         Pattern pattern = Pattern.compile("^\\(defun\s+(\\w+)\s+\\((.*?)\\)\\)");
@@ -91,6 +126,13 @@ public class Functions {
         return name;
     }
 
+    /**
+     * Checker string.
+     *
+     * @param input the input
+     * @param list  the list
+     * @return the string
+     */
     public String Checker(String input, ArrayList<String> list){
         String name = "";
         Pattern pattern = Pattern.compile("^\\((\\w+)\\s+\\((\\w+)\\s+(\\w+)\\)\\)$");
@@ -105,6 +147,13 @@ public class Functions {
         return name;
     }
 
+    /**
+     * Check variables boolean.
+     *
+     * @param a the a
+     * @param b the b
+     * @return the boolean
+     */
     public boolean checkVariables(ArrayList<String> a, ArrayList<String> b){
         return a.size() == b.size();
     }

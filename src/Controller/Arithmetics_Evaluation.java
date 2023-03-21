@@ -1,12 +1,19 @@
 package Controller;
 
+/**
+ * The type Arithmetics evaluation.
+ */
 public class Arithmetics_Evaluation {
 
-    //PROPIEDADES
+    /**
+     * The Resultado.
+     */
+//PROPIEDADES
     double resultado = 1;
 
     /**
      * Metodo que realiza la suma con doubles
+     *
      * @param x Primer valor con decimal
      * @param y Segundo valor con decimal
      * @return Resultado de la suma
@@ -17,6 +24,7 @@ public class Arithmetics_Evaluation {
 
     /**
      * Metodo que realiza la suma con un numeros enteros
+     *
      * @param x Primer valor entero
      * @param y Segundo valor entero
      * @return Resultado de la suma
@@ -27,6 +35,7 @@ public class Arithmetics_Evaluation {
 
     /**
      * Metodo que realiza la resta con un numeros doubles
+     *
      * @param x Primer valor con decimal
      * @param y Segundo valor con decimal
      * @return Resultado de la resta
@@ -37,6 +46,7 @@ public class Arithmetics_Evaluation {
 
     /**
      * Metodo que realiza la resta con un numeros enteros
+     *
      * @param x Primer valor entero
      * @param y Segundo valor entero
      * @return Resultado de la resta
@@ -47,6 +57,7 @@ public class Arithmetics_Evaluation {
 
     /**
      * Metodo que realiza la multiplicacion con un numeros doubles
+     *
      * @param x Primer valor con decimal
      * @param y Segundo valor con decimal
      * @return Resultado de la multiplicación
@@ -57,6 +68,7 @@ public class Arithmetics_Evaluation {
 
     /**
      * Metodo que realiza la multiplicacion con un numeros enteros
+     *
      * @param x Primer valor entero
      * @param y Segundo valor entero
      * @return Resultado de la multiplicación
@@ -67,6 +79,7 @@ public class Arithmetics_Evaluation {
 
     /**
      * Metodo que realiza la division con un numeros doubles
+     *
      * @param x Primer valor con decimal
      * @param y Segundo valor con decimal
      * @return Resultado de la división
@@ -77,6 +90,7 @@ public class Arithmetics_Evaluation {
 
     /**
      * Metodo que realiza la division con un numeros enteros
+     *
      * @param x Primer valor entero
      * @param y Segundo valor entero
      * @return Resultado de la división
@@ -87,6 +101,7 @@ public class Arithmetics_Evaluation {
 
     /**
      * Metodo que realiza el incremento con un numero double
+     *
      * @param x Primer valor con decimal
      * @return Resultado de la incrementación
      */
@@ -96,6 +111,7 @@ public class Arithmetics_Evaluation {
 
     /**
      * Metodo que realiza el incremento con un número entero
+     *
      * @param x Primer valor entero
      * @return Resultado de la incrementación
      */
@@ -105,6 +121,7 @@ public class Arithmetics_Evaluation {
 
     /**
      * Metodo que realiza la disminucion con un numero double
+     *
      * @param x Primer valor decimal
      * @return Resultado de la decrementación
      */
@@ -114,6 +131,7 @@ public class Arithmetics_Evaluation {
 
     /**
      * Metodo que realiza la disminución con un número entero
+     *
      * @param x Primer valor entero
      * @return Resultado de la decrementación
      */
@@ -123,6 +141,7 @@ public class Arithmetics_Evaluation {
 
     /**
      * Metodo que realiza el valor absoluto con un numero double
+     *
      * @param x Primer valor con decimal
      * @return Resultado del valor absoluto
      */
@@ -132,6 +151,7 @@ public class Arithmetics_Evaluation {
 
     /**
      * Metodo que realiza el valor absoluto con un número entero
+     *
      * @param x Primer valor entero
      * @return Resultado del valor absoluto
      */

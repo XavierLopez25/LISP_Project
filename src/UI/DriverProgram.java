@@ -4,17 +4,31 @@ import Controller.Functions;
 import Controller.LISP_Expression_Parser;
 import Controller.Lisp_Function;
 
-import java.util.ArrayList;
 import java.util.Scanner;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
+/**
+ * The type Driver program.
+ */
 public class DriverProgram {
+    /**
+     * The constant FR.
+     */
     public static Functions FR;
+    /**
+     * The constant LEP.
+     */
     public static LISP_Expression_Parser LEP;
 
+    /**
+     * The constant LF.
+     */
     public static Lisp_Function LF;
 
+    /**
+     * The entry point of application.
+     *
+     * @param args the input arguments
+     */
     public static void main(String[] args) {
         FR = new Functions();
         LEP = new LISP_Expression_Parser();
@@ -29,31 +43,19 @@ public class DriverProgram {
         }
     }
 
-    public static void print(String print){
-        System.out.print(print);
-    }
-
+    /**
+     * Start.
+     */
     public static void start(){
-        System.out.println("\n Interprete Lisp\nIngrese '(HELP)' para ayuda. ");
+        System.out.println("\n Interprete Lisp");
     }
 
-    public static String getOperacion(Scanner scan){
-        print("\n >>> ");
-        return scan.nextLine();
-    }
-
-
-    public static void salida(){
-        print("\n >>> ");
-        System.exit(0);
-    }
-
-
-    public static void help(){
-        print("\n >>>Help: ");
-        print("\nPara definir una operacion debe ingresarlas en formato lisp. Ejemplo: (+ 2 3) o  (* (+ 5 3) 2)\n");
-    }
-
+    /**
+     * Set cases boolean.
+     *
+     * @param sc the sc
+     * @return the boolean
+     */
     public static boolean setCases(Scanner sc){
         System.out.println("Menu");
         System.out.println("-".repeat(50));

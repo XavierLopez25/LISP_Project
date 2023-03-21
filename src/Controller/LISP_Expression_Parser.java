@@ -4,10 +4,22 @@ import java.util.HashMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * The type Lisp expression parser.
+ */
 public class LISP_Expression_Parser {
 
+    /**
+     * The constant variablesHashMap.
+     */
     public static HashMap<String, String> variablesHashMap = new HashMap<>();
 
+    /**
+     * Parse string.
+     *
+     * @param line the line
+     * @return the string
+     */
     public static String parse(String line) {
         Pattern pattern;
         Matcher matcher;

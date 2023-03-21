@@ -7,7 +7,13 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * The type Lisp function.
+ */
 public class Lisp_Function {
+    /**
+     * The Map.
+     */
     static HashMap Map= LISP_Expression_Parser.variablesHashMap;
     /**
      * Verifica si una cadena de string tiene numero o letras
@@ -281,8 +287,9 @@ public class Lisp_Function {
     /**
      * Entra la expresion que se desea evaluar
      * (atom 1) (atom a) (equal 1 1) (equal hola hola) (atom 1) (atom a) (list 1 2 3) (list (1 2 3) (hola)) (> 2 1)
-     * @param expression
-     * @return
+     *
+     * @param expression the expression
+     * @return string
      */
     public static String Operation(String expression){
         LISP_Expression_Parser lisp= new LISP_Expression_Parser();
@@ -409,6 +416,12 @@ public class Lisp_Function {
     }
 
 
+    /**
+     * Evaluate int.
+     *
+     * @param expression the expression
+     * @return the int
+     */
     public static int evaluate(String expression) {
         if (expression.startsWith("(")) {
             // Evaluate the expression
